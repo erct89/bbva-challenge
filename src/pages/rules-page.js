@@ -1,8 +1,8 @@
-import { LitElement, css, html } from 'lit';
+import { LitElement, html, css } from 'lit';
 
-class ConfigPage extends LitElement {
+class RulesPage extends LitElement {
   static get is() {
-    return 'config-page';
+    return 'rules-page';
   }
 
   static get properties() {
@@ -18,8 +18,8 @@ class ConfigPage extends LitElement {
   // }
 
   render() {
-    return html`Config`;
+    return html``;
   }
 }
 
-customElements.define(ConfigPage.is, ConfigPage);
+customElements.define(RulesPage.is, RulesPage);
