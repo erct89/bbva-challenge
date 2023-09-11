@@ -1,6 +1,8 @@
 import { LitElement, css, html } from 'lit';
 
-class ConfigPage extends LitElement {
+import { CommonComponentMixin } from '../mixins/common-component-mixin.js';
+
+class ConfigPage extends CommonComponentMixin(LitElement) {
   static get is() {
     return 'config-page';
   }
