@@ -18,6 +18,7 @@
     "start": "web-dev-server"
   },
   "dependencies": {
+    "@open-wc/dedupe-mixin": "^1.4.0",
     "lit": "^2.0.2"
   },
   "devDependencies": {
