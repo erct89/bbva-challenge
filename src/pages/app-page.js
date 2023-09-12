@@ -172,9 +172,7 @@ class AppPage extends LitElement {
   }
 
   _links(page) {
-    const x = this.routes.filter(({ path, label }) => label && page !== path);
-    debugger;
-    return x;
+    return this.routes.filter(({ path, label }) => label && page !== path);
   }
 
   _redirect(path) {
