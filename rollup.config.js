@@ -2,6 +2,7 @@ import nodeResolve from '@rollup/plugin-node-resolve';
 import babel from '@rollup/plugin-babel';
 import html from '@web/rollup-plugin-html';
 import { importMetaAssets } from '@web/rollup-plugin-import-meta-assets';
+import copy from 'rollup-plugin-copy';
 import esbuild from 'rollup-plugin-esbuild';
 import { generateSW } from 'rollup-plugin-workbox';
 import path from 'path';
@@ -52,6 +53,10 @@ export default {
           },
         ],
       ],
+    }),
+    /** Copy assets to building directory */
+    copy({
+      targets: [{ src: 'assets/*', dest: 'dist/assets' }],
     }),
     /** Create and inject a service worker */
     generateSW({
