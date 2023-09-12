@@ -2,7 +2,9 @@ import { LitElement, html, nothing } from 'lit';
 
 import { CommonComponentMixin } from '../mixins/common-component-mixin.js';
 
+import '../components/page-template.js';
 import '../components/input-text.js';
+import '../components/input-button.js';
 import '../components/link-button.js';
 
 import styles from './home-page-styles.js';
@@ -14,18 +16,22 @@ class HomePage extends CommonComponentMixin(LitElement) {
 
   static get properties() {
     return {
-      appHeader: {
-        type: String,
-        attribute: 'app-header'
-      },
+      appHeader: { type: String, attribute: 'app-header' },
+      allowedCharacters: { type: Object, attribute: 'allowed-characters' },
       user: {
         type: String,
       },
-      messageError: {
+      messageValidError: {
         type: String,
+        attribute: 'message-valid-error',
       },
-      regex: {
-        type: String,
+      validationUserPatter: {
+        type: Object,
+        attribute: 'validation-user-pattern',
+      },
+      _showError: {
+        type: Boolean,
+        state: true,
       },
     };
   }
@@ -36,19 +42,22 @@ class HomePage extends CommonComponentMixin(LitElement) {
 
   constructor() {
     super();
+    this.appHeader = '';
+    this.allowedCharacters = /[a-zA-Z0-9]/;
+    this.messageValidError = 'User is invalid';
+    this.validationUserPatter = /^[a-zA-Z0-9]{3,8}$/;
     this.user = '';
-    this.messageError = '';
-    this.regex = /^[a-zA-Z][a-zA-Z0-9]{3,5}$/;
+    this._showError = false;
   }
 
   _isUserValid() {
-    return this.regex.test(this.user);
+    return this.validationUserPatter.test(this.user);
   }
 
   _handleRegister(event) {
     if (!this._isUserValid()) {
+      this._showError = true;
       event.preventDefault();
-      this.messageError = 'Minimun between 3 and 8 characters (a-z).';
       return;
     }
 
@@ -64,12 +73,12 @@ class HomePage extends CommonComponentMixin(LitElement) {
   _handleInputTextChange(event) {
     const { detail } = event;
     this.user = detail;
-    this.messageError = '';
+    this._showError = false;
   }
 
   get _renderErrorMessage() {
-    return this.messageError
-      ? html`<div class="error-message">${this.messageError}</div>`
+    return this._showError
+      ? html`<div class="error-message">${this.messageValidError}</div>`
       : nothing;
   }
 
@@ -81,9 +90,12 @@ class HomePage extends CommonComponentMixin(LitElement) {
       <main>
         <input-text
           label="User Name"
+          .allowedCharacters="${this.allowedCharacters}"
           .inputValue="${this.user}"
-          .regex="${this.regex}"
-          message-error="User name is no valid"
+          min-length="3"
+          max-length="8"
+          message-max-error="User maximum 8 characters."
+          message-min-error="User minimum 3 characters."
           @input-text-change="${this._handleInputTextChange}"
           @input-text-valid="${this._handleInputTextValid}"
         ></input-text>
