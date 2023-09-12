@@ -1,6 +1,7 @@
 import { LitElement, css, html } from 'lit';
 
 import { CommonComponentMixin } from '../mixins/common-component-mixin.js';
+import '../components/memory-game.js';
 
 class GamePage extends CommonComponentMixin(LitElement) {
   static get is() {
@@ -8,19 +9,38 @@ class GamePage extends CommonComponentMixin(LitElement) {
   }
 
   static get properties() {
-    return {};
+    return {
+      user: {
+        type: String,
+      },
+      config: {
+        type: Object,
+      },
+    };
   }
 
   static get styles() {
     return css``;
   }
 
-  // constructor() {
-  //   super();
-  // }
+  constructor() {
+    super();
+    this.user = '';
+    this.config = {};
+  }
 
   render() {
-    return html`Game page`;
+    return html`
+      <div>
+        <main>
+          <memory-game
+            .currentLevel="${this.config?.level}"
+            .numberCardsToFind="${this.config?.numberCardsToFind}"
+          >
+          </memory-game>
+        </main>
+      </div>
+    `;
   }
 }
 
