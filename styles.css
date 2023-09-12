@@ -47,3 +47,21 @@
   --app-borde-color: var(--app-color--gray);
   --app-shadow-color: var(--app-color--gray);
 }
+
+html,
+body,
+app-index {
+  height: 100%;
+}
+
+body {
+  background-color: var(--app-bg);
+  margin: var(--app-size--zero-px);
+  font-family: var(--app-ffamily);
+  font-size: var(--app-fsize);
+}
+
+noscript {
+  display: block;
+  margin: var(--app-size--n);
+}
