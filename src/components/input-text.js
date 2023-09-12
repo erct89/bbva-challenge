@@ -16,40 +16,72 @@ class InputText extends CommonComponentMixin(LitElement) {
 
   static get properties() {
     return {
+      allowedCharacters: { type: Object, attribute: 'allowed-characters' },
       inputName: { type: String, attribute: 'input-name' },
-      label: { type: String },
-      messageError: { type: String, attribute: 'message-error' },
-      regex: { type: Object },
       inputValue: { type: String, attribute: 'input-value' },
+      label: { type: String },
+      maxLength: { type: Number, attribute: 'max-length' },
+      messageMaxError: { type: String, attribute: 'message-max-error' },
+      messageMinError: { type: String, attribute: 'message-min-error' },
+      minLength: { type: Number, attribute: 'min-length' },
       _hasError: { type: Boolean, state: true },
     };
   }
 
   constructor() {
     super();
-    this.label = '';
+    this.allowedCharacters = /.+/g;
     this.inputValue = '';
-    this.messageError = '';
     this.inputName = 'input-text';
-    this.regex = /^[a-zA-Z][a-zA-Z0-9]{3,8}$/;
+    this.label = '';
+    this.maxLength = Infinity;
+    this.messageMaxError = '';
+    this.messageMinError = '';
+    this.minLength = 0;
     this._hasError = false;
-  }
-
-  get _renderError() {
-    return this._hasError
-      ? html`<div class="error-message">${this.messageError}</div>`
-      : nothing;
-  }
-
-  get _isValid() {
-    return this.regex.test(this.inputValue);
   }
 
   _handleInputChange(event) {
     const newValue = event.target.value;
     this.inputValue = newValue;
-    this._hasError = !this._isValid;
+    this._hasError = !this._isValidLength;
     this._dispatch('input-text-change', this.inputValue);
+  }
+
+  _isAllowedCharacters(character) {
+    return this.allowedCharacters.test(character);
+  }
+
+  _handleKeyPress(event) {
+    const { key } = event;
+
+    if (!this._isAllowedCharacters(key)) {
+      event.preventDefault();
+    }
+  }
+
+  get _isValidLength() {
+    const { length } = this.inputValue;
+    return length >= this.minLength && length <= this.maxLength;
+  }
+
+  get _renderLengthError() {
+    const { length } = this.inputValue;
+    if (this._isValidLength) return nothing;
+
+    if (length < this.minLength) {
+      return html`<div class="error-message">${this.messageMinError}</div>`;
+    }
+
+    if (length > this.maxLength) {
+      return html`<div class="error-message">${this.messageMaxError}</div>`;
+    }
+
+    return nothing;
+  }
+
+  get _renderErrors() {
+    return this._hasError ? this._renderLengthError : nothing;
   }
 
   render() {
@@ -63,11 +95,12 @@ class InputText extends CommonComponentMixin(LitElement) {
           name="${this.inputName}"
           autocomplete="off"
           .value="${this.inputValue}"
+          @keypress="${this._handleKeyPress}"
           @input="${this._handleInputChange}"
         />
         <label>User Name</label>
       </div>
-      ${this._renderError}
+      ${this._renderErrors}
     </div>`;
   }
 }
