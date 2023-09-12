@@ -1,0 +1,49 @@
+:root {
+  /** colors */
+  --app-color--green: rgb(0, 153, 153);
+  --app-color--red: rgb(255, 0, 0);
+  --app-color--yellow: rgb(255, 170, 0);
+  --app-color--gray: rgb(148, 148, 148);
+  --app-color--white: rgb(245, 245, 245);
+  --app-color--black: rgb(0, 0, 0);
+
+  /** sizes */
+  --app-size--zero-px: 0px;
+  --app-size--one-px: 1px;
+  --app-size--s: 0.25rem;
+  --app-size--m: 0.5rem;
+  --app-size--n: 1rem;
+  --app-size--l: 1.25rem;
+  --app-size--xl: 1.5rem;
+  --app-size--2xl: 1.75rem;
+  --app-size--3xl: 2rem;
+
+  /** font */
+  --app-fsize--s: calc(var(--app-size--s) + 1vmin);
+  --app-fsize--m: calc(var(--app-size--m) + 2vmin);
+  --app-fsize--n: calc(var(--app-size--n) + 2vmin);
+  --app-fsize--xl: calc(var(--app-size--xl) + 2vmin);
+  --app-fsize--2xl: calc(var(--app-size--2xl) + 2vmin);
+  --app-fsize--3xl: calc(var(--app-size--3xl) + 3vmin);
+  --app-ffamily: sans-serif;
+  --app-fweight--bold: bold;
+  --app-fweight--normal: normal;
+  --app-fweight: var(--app-fweight);
+  --app-fstyle--italic: italic;
+
+  /** colors **/
+  --app-bg: var(--app-color--white);
+  --app-bg--second: var(--app-color--yellow);
+  --app-bg--three: var(--app-color--gray);
+  --app-bg--four: var(--app-color--black);
+  --app-bg--warning: var(--app-color--red);
+  --app-bg--success: var(--app-color--green);
+  --app-color: var(--app-color--black);
+  --app-color--second: var(--app-color--gray);
+  --app-color--three: var(--app-color--white);
+  --app-color--four: var(--app-color--yellow);
+  --app-color--warning: var(--app-color--red);
+  --app-color--success: var(--app-color--green);
+  --app-borde-color: var(--app-color--gray);
+  --app-shadow-color: var(--app-color--gray);
+}
