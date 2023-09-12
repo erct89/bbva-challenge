@@ -4,7 +4,6 @@ import { CommonComponentMixin } from '../mixins/common-component-mixin.js';
 
 import '../components/page-template.js';
 import '../components/input-text.js';
-import '../components/input-button.js';
 import '../components/link-button.js';
 
 import styles from './home-page-styles.js';
