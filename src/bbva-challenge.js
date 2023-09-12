@@ -1,5 +1,6 @@
 import { LitElement, html } from 'lit';
 
+import 'urlpattern-polyfill';
 import './pages/app-page.js';
 
 class BbvaChallenge extends LitElement {
