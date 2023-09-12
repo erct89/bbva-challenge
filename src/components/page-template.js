@@ -1,4 +1,8 @@
-import { LitElement, html, css, nothing } from 'lit';
+import { LitElement, html, nothing } from 'lit';
+
+import styles from './page-template-styles.js';
+
+import './link-button.js';
 
 export class PageTemplate extends LitElement {
   static get is() {
@@ -15,7 +19,7 @@ export class PageTemplate extends LitElement {
   }
 
   static get styles() {
-    return css``;
+    return [styles];
   }
 
   constructor() {
@@ -30,9 +34,9 @@ export class PageTemplate extends LitElement {
     return this.showNav && this.links.length > 0;
   }
 
-  _renderHeader() {
+  get _renderHeader() {
     return this.showHeader
-      ? html` <header>
+      ? html`<header>
           <div class="header">
             <div class="header-left">
               <slot name="header-left"></slot>
@@ -44,7 +48,7 @@ export class PageTemplate extends LitElement {
               <slot name="header-right"></slot>
             </div>
           </div>
-          ${this._renderNavBar()}
+          ${this._renderNavBar}
         </header>`
       : nothing;
   }
@@ -52,19 +56,21 @@ export class PageTemplate extends LitElement {
   static _renderLink(link) {
     return html`
       <div>
-        <a class="simple" href="${link?.path}">${link?.label}</a>
+        <link-button class="simple" href="${link?.path}"
+          >${link?.label}</link-button
+        >
       </div>
     `;
   }
 
-  _renderNavBar() {
+  get _renderNavBar() {
     return this._showNav
       ? html` <nav>${this.links.map(PageTemplate._renderLink)}</nav> `
       : nothing;
   }
 
-  _renderFooter() {
-    this.hideFooter = this.showFooter
+  get _renderFooter() {
+    return this.showFooter
       ? html` <footer>
           <slot name="footer-content"></slot>
         </footer>`
@@ -74,10 +80,11 @@ export class PageTemplate extends LitElement {
   render() {
     return html`
       <section>
-        ${this._renderHeader()}
+        ${this._renderHeader}
         <main>
           <slot></slot>
         </main>
+        ${this._renderFooter}
       </section>
     `;
   }
