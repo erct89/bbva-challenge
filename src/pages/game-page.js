@@ -25,7 +25,6 @@ class GamePage extends CommonComponentMixin(LitElement) {
 
   constructor() {
     super();
-    this.user = '';
     this.config = {};
   }
 
