@@ -71,6 +71,7 @@ class AppPage extends LitElement {
     super.firstUpdated();
 
     this._storageDP = this.shadowRoot.querySelector('#storageDP');
+    this._scores = this._storageDP.getScores(false, []);
   }
 
   get routes() {
@@ -97,6 +98,7 @@ class AppPage extends LitElement {
             <game-page
               class="content content--center"
               .config="${this._appConfig}"
+              @game-over="${this._registerScore}"
             ></game-page>
           </page-template>
         `,
@@ -161,6 +163,11 @@ class AppPage extends LitElement {
     ];
   }
 
+
+  get _isLogin() {
+    return !!this._user;
+  }
+
   _authenticationRoute() {
     const result = this._isLogin;
 
@@ -190,9 +197,21 @@ class AppPage extends LitElement {
     this._redirect('/game');
   }
 
-  get _isLogin() {
-    return !!this._user;
+  _registerScore({ detail }) {
+    const newScore = { ...detail, name: this._user };
+
+    this._storageDP.registerScore(this._user, newScore);
+
+    this._scores = this._storageDP.getScores(false, []);
+    this._userScores = this._storageDP.getScores(this._user, []);
   }
+
+  _registerConfig({ detail }) {
+    const { level, numberCardsToFind } = detail;
+    this._appConfig = { level, numberCardsToFind };
+    this._storageDP.saveConfig(this._user, this._appConfig);
+  }
+
 
   get _renderHeader() {
     return html`<div class="content content--center" slot="header-left">
