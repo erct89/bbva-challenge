@@ -2,7 +2,6 @@ import { LitElement, html, nothing } from 'lit';
 
 import { CommonComponentMixin } from '../mixins/common-component-mixin.js';
 
-import '../components/page-template.js';
 import '../components/input-text.js';
 import '../components/link-button.js';
 
@@ -15,8 +14,8 @@ class HomePage extends CommonComponentMixin(LitElement) {
 
   static get properties() {
     return {
-      appHeader: { type: String, attribute: 'app-header' },
       allowedCharacters: { type: Object, attribute: 'allowed-characters' },
+      appHeader: { type: String, attribute: 'app-header' },
       user: {
         type: String,
       },
@@ -41,8 +40,8 @@ class HomePage extends CommonComponentMixin(LitElement) {
 
   constructor() {
     super();
-    this.appHeader = '';
     this.allowedCharacters = /[a-zA-Z0-9]/;
+    this.appHeader = '';
     this.messageValidError = 'User is invalid';
     this.validationUserPatter = /^[a-zA-Z0-9]{3,8}$/;
     this.user = '';
@@ -60,13 +59,7 @@ class HomePage extends CommonComponentMixin(LitElement) {
       return;
     }
 
-    this.dispatchEvent(
-      new CustomEvent('user-name-changed', {
-        detail: this.user,
-        bubbles: true,
-        composed: true,
-      })
-    );
+    this._dispatch('user-name-changed', this.user);
   }
 
   _handleInputTextChange(event) {
