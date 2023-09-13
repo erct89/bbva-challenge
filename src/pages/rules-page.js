@@ -14,7 +14,7 @@ class RulesPage extends CommonComponentMixin(LitElement) {
   render() {
     return html` <section>
       <div>
-        <div>
+        <div class="content">
           <h4>Description</h4>
           <p>
             Check your memorization speed by discovering the card's position.
