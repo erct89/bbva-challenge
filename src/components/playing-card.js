@@ -58,6 +58,7 @@ class PlayingCard extends CommonComponentMixin(LitElement) {
    */
   toggleCardFace() {
     this.isFront = !this.isFront;
+
     this._dispatch('playing-card-toggle', {
       id: this.frontContent,
       isFront: this.isFront,

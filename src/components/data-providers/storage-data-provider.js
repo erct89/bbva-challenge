@@ -1,6 +1,6 @@
 import { LitElement, nothing } from 'lit';
 
-class StorageDataProvider extends LitElement {
+export class StorageDataProvider extends LitElement {
   static get is() {
     return `storage-data-provider`;
   }

@@ -54,7 +54,6 @@ class InputText extends CommonComponentMixin(LitElement) {
 
   _handleKeyPress(event) {
     const { key } = event;
-
     if (!this._isAllowedCharacters(key)) {
       event.preventDefault();
     }
