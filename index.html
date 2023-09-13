@@ -1,28 +1,52 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="Description" content="Put your description here.">
-  <base href="/">
+    <title>EAGame</title>
+    <meta
+      name="description"
+      content="Check your memorization speed by discovering the card's position. You have different difficulty options and a score record."
+    />
 
-  <style>
-    html,
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: sans-serif;
-      background-color: #ededed;
-    }
-  </style>
-  <title>bbva-challenge</title>
-</head>
+    <base href="/" />
 
-<body>
-  <bbva-challenge></bbva-challenge>
+    <link rel="icon" href="assets/favicon.ico" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="assets/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="assets/favicon-16x16.png"
+    />
 
-  <script type="module" src="./src/bbva-challenge.js"></script>
-</body>
+    <link rel="manifest" href="manifest.webmanifest" />
 
+    <meta name="theme-color" content="#000000" />
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="EAGame" />
+
+    <link rel="apple-touch-icon" href="assets/manifest/icon-192x192.png" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+
+  <body>
+    <bbva-challenge></bbva-challenge>
+
+    <noscript>Please enable JavaScript to view this website.</noscript>
+
+    <script type="module" src="./src/bbva-challenge.js"></script>
+  </body>
 </html>
