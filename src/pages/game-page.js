@@ -1,6 +1,6 @@
-import { LitElement, css, html } from 'lit';
-
+import { LitElement, html, css } from 'lit';
 import { CommonComponentMixin } from '../mixins/common-component-mixin.js';
+
 import '../components/memory-game.js';
 
 class GamePage extends CommonComponentMixin(LitElement) {
@@ -10,9 +10,6 @@ class GamePage extends CommonComponentMixin(LitElement) {
 
   static get properties() {
     return {
-      user: {
-        type: String,
-      },
       config: {
         type: Object,
       },
@@ -29,17 +26,13 @@ class GamePage extends CommonComponentMixin(LitElement) {
   }
 
   render() {
-    return html`
-      <div>
-        <main>
-          <memory-game
-            .currentLevel="${this.config?.level}"
-            .numberCardsToFind="${this.config?.numberCardsToFind}"
-          >
-          </memory-game>
-        </main>
-      </div>
-    `;
+    return html` <section class="content content--center">
+      <memory-game
+        .currentLevel="${this.config?.level}"
+        .numberCardsToFind="${this.config?.numberCardsToFind}"
+      >
+      </memory-game>
+    </section>`;
   }
 }
 
