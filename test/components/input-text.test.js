@@ -44,7 +44,7 @@ describe('InputText', () => {
     inputText.inputValue = newValue;
     await inputText.updateComplete;
 
-    inputHtml.dispatchEvent(new KeyboardEvent('keypress', { key: '@' }));
+    inputHtml.dispatchEvent(new KeyboardEvent('keydown', { key: '@' }));
 
     expect(inputHtml.value).to.equal(newValue);
     expect(inputText.inputValue).to.equal(newValue);

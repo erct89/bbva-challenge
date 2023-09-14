@@ -52,7 +52,7 @@ class InputText extends CommonComponentMixin(LitElement) {
     return this.allowedCharacters.test(character);
   }
 
-  _handleKeyPress(event) {
+  _handleKeyDown(event) {
     const { key } = event;
     if (!this._isAllowedCharacters(key)) {
       event.preventDefault();
@@ -94,7 +94,7 @@ class InputText extends CommonComponentMixin(LitElement) {
           name="${this.inputName}"
           autocomplete="off"
           .value="${this.inputValue}"
-          @keypress="${this._handleKeyPress}"
+          @keydown="${this._handleKeyDown}"
           @input="${this._handleInputChange}"
         />
         <label>User Name</label>
