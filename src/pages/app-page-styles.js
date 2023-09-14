@@ -28,7 +28,8 @@ export default css`
   h3,
   h4,
   h5,
-  h6, p {
+  h6,
+  p {
     margin: var(--app-size--zero-px);
     padding: var(--app-size--zero-px);
   }
