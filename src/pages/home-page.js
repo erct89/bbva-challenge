@@ -40,10 +40,10 @@ class HomePage extends CommonComponentMixin(LitElement) {
 
   constructor() {
     super();
-    this.allowedCharacters = /[a-zA-Z0-9]/;
+    this.allowedCharacters = /[a-zA-Z0-9ñÑ]/;
     this.appHeader = '';
     this.messageValidError = 'User is invalid';
-    this.validationUserPatter = /^[a-zA-Z0-9]{3,8}$/;
+    this.validationUserPatter = /^[a-zA-Z0-9ñÑ]{3,8}$/;
     this.user = '';
     this._showError = false;
   }

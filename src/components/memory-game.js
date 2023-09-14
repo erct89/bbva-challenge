@@ -157,6 +157,8 @@ class MemoryGame extends CommonComponentMixin(LitElement) {
       this._isGameStarted = false;
       this._showFrontCards = true;
 
+      window.navigator?.vibrate?.([50, 200, 50, 200]);
+
       this._dispatch('game-over', {
         score: this.score,
         rounds: this._round,

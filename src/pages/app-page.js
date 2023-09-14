@@ -1,5 +1,5 @@
 /* eslint-disable class-methods-use-this */
-import { LitElement, html, css, nothing } from 'lit';
+import { LitElement, html, nothing } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import { Router } from '@lit-labs/router';
 
