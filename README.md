@@ -45,9 +45,3 @@ npm run test
 - `test` runs your test suite with Web Test Runner
 - `lint` runs the linter for your project
 - `format` fixes linting and formatting errors
-
-## Coverage
-
-For most of the tools, the configuration is in the `package.json` to reduce the number of files in your project.
-
-If you customize the configuration a lot, you can consider moving them to individual files.
