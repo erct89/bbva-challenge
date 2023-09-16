@@ -85,7 +85,7 @@ class InputText extends CommonComponentMixin(LitElement) {
 
   render() {
     return html`<div
-      class="control ${classMap({ filled: this.inputValue.length > 0 })}"
+      class="control ${classMap({ filled: this.inputValue?.length > 0 })}"
     >
       <div class="field">
         <input
