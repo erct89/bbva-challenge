@@ -38,17 +38,6 @@ export default css`
     flex-grow: 1;
   }
 
-  .content {
-    width: 100%;
-    height: 100%;
-  }
-
-  .content--center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
   .notify-show {
     position: absolute;
     bottom: 0;

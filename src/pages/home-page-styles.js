@@ -10,6 +10,11 @@ export default css`
     --home-view-error-message-padding-bottom: var(--app-size--n);
     --home-view-link-button-margin-top: var(--app-size--n);
 
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     font-family: var(--home-view-ffamily);
     font-weight: var(--home-view-fweight);
     font-size: var(--home-view-fsize);

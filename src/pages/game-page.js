@@ -1,28 +1,20 @@
 import { LitElement, html, css } from 'lit';
 import { CommonComponentMixin } from '../mixins/common-component-mixin.js';
+import { PageComponentMixin } from '../mixins/page-component-mixin.js';
 
 import '../components/memory-game.js';
 
-class GamePage extends CommonComponentMixin(LitElement) {
+class GamePage extends PageComponentMixin(CommonComponentMixin(LitElement)) {
   static get is() {
     return 'game-page';
   }
 
   static get properties() {
-    return {
-      config: {
-        type: Object,
-      },
-    };
+    return {};
   }
 
   static get styles() {
     return css``;
-  }
-
-  constructor() {
-    super();
-    this.config = {};
   }
 
   render() {

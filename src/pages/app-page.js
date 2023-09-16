@@ -56,7 +56,6 @@ class AppPage extends LitElement {
       numberCardsToFind: DEFAULT_NUMBER_CARDS_TO_FIND,
       level: DEFAULT_LEVEL,
     };
-    this._router = new Router(this, this.routes);
     this._scores = [];
     this._user = '';
     this._userScores = [];
@@ -64,6 +63,7 @@ class AppPage extends LitElement {
     this._numberCardsToFind = NUMBER_CARDS_TO_FIND;
     this._storageDP = {};
     this._notifyMessage = '';
+    this._router = new Router(this, this.routes);
   }
 
   firstUpdated() {
@@ -77,96 +77,60 @@ class AppPage extends LitElement {
     return [
       {
         path: '/',
-        render: () => html`<page-template show-footer>
-          <home-page
-            class="content content--center"
-            app-header="${this._appHeader}"
-            user="${this._user}"
-            @user-name-changed="${this._registerUser}"
-          ></home-page>
-          ${this._renderFooter}
-        </page-template>`,
+        render: this.getRenderRoute(
+          '/',
+          config => html`<home-page
+            .config="${config}"
+          ></home-page>`,
+          {
+            appHeader: this._appHeader,
+            user: this._user,
+          },
+          false,
+          false
+        ),
       },
       {
         path: '/game',
         label: 'Game',
-        render: () => html`
-          <page-template
-            show-header
-            show-nav
-            show-footer
-            .links="${this._links('/game')}"
-          >
-            ${this._renderHeader}
-            <game-page
-              .config="${this._appConfig}"
-              @game-over="${this._registerScore}"
-            ></game-page>
-            ${this._renderFooter}
-          </page-template>
-        `,
+        render: this.getRenderRoute(
+          '/game',
+          config => html`<game-page .config="${config}"></game-page>`,
+          this._appConfig
+        ),
         enter: () => this._authenticationRoute(),
       },
       {
         path: '/scores',
         label: 'Scores',
-        render: () => html` <page-template
-          show-header
-          show-nav
-          show-footer
-          .links="${this._links('/scores')}"
-        >
-          ${this._renderHeader}
-
-          <scores-page
-            .scores="${this._scores}"
-            .userScores=${this._userScores}
-          ></scores-page>
-
-          ${this._renderFooter}
-        </page-template>`,
+        render: this.getRenderRoute(
+          '/scores',
+          config => html`<scores-page .config="${config}"></scores-page>`,
+          { scores: this._scores, userScores: this._userScores }
+        ),
         enter: () => this._authenticationRoute(),
       },
       {
         path: '/rules',
         label: 'Rules',
-        render: () => html`<page-template
-          show-header
-          show-nav
-          show-footer
-          .links="${this._links('/rules')}"
-        >
-          ${this._renderHeader}
-
-          <rules-page></rules-page>
-
-          ${this._renderFooter}
-        </page-template>`,
+        render: this.getRenderRoute(
+          '/rules',
+          () => html`<rules-page></rules-page>`
+        ),
         enter: () => this._authenticationRoute(),
       },
       {
         path: '/config',
         label: 'Configs',
-        render: () => html`<page-template
-          show-header
-          show-nav
-          show-footer
-          .links="${this._links('/rules')}"
-        >
-          ${this._renderHeader}
-          <main>
-            <config-page
-              .config="${{
-                ...this._appConfig,
-                levels: this._levels,
-                optionsNumbersCardsToFind: this._numberCardsToFind,
-              }}"
-              @configs-change="${this._registerConfig}"
-            >
-            </config-page>
-          </main>
-          ${this._renderFooter}
-        </page-template>`,
+        render: this.getRenderRoute(
+          '/config',
+          config => html`<config-page .config="${config}"></config-page>`,
+          {
+            ...this._appConfig,
+            levels: this._levels,
+            optionsNumbersCardsToFind: this._numberCardsToFind,
+          }
+        ),
         enter: () => this._authenticationRoute(),
       },
       {
@@ -177,6 +141,26 @@ class AppPage extends LitElement {
         },
       },
     ];
+  }
+
+  getRenderRoute(
+    path,
+    content,
+    config,
+    showHeader = true,
+    showNav = true,
+    showFooter = true
+  ) {
+    return () => html`<page-template
+      ?show-header="${showHeader}"
+      ?show-nav="${showNav}"
+      ?show-footer="${showFooter}"
+      .links="${this._links(path)}"
+    >
+      ${this._renderHeader}
+      <main>${content(config)}</main>
+      ${this._renderFooter}
+    </page-template>`;
   }
 
   get _isLogin() {
@@ -267,7 +251,12 @@ class AppPage extends LitElement {
     const notifyClasses = classMap({ 'notify-show': this._notifyMessage });
 
     return html`
-      <div class="app">
+      <div
+        class="app"
+        @user-name-changed="${this._registerUser}"
+        @game-over="${this._registerScore}"
+        @configs-change="${this._registerConfig}"
+      >
         <storage-data-provider
           id="storageDP"
           host="${LOCAL_STORAGE_KEY}"

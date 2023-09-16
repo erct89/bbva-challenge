@@ -170,7 +170,7 @@ class MemoryGame extends CommonComponentMixin(LitElement) {
 
   get _getAdditionalInfo() {
     return [
-      { label: 'Level', value: this._level.label },
+      { label: 'Level', value: this._level?.label },
       { label: 'Find', value: this._numberCardsToFindValue },
     ];
   }

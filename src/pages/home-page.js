@@ -1,32 +1,20 @@
 import { LitElement, html, nothing } from 'lit';
 
 import { CommonComponentMixin } from '../mixins/common-component-mixin.js';
+import { PageComponentMixin } from '../mixins/page-component-mixin.js';
 
 import '../components/input-text.js';
 import '../components/link-button.js';
 
 import styles from './home-page-styles.js';
 
-class HomePage extends CommonComponentMixin(LitElement) {
+class HomePage extends PageComponentMixin(CommonComponentMixin(LitElement)) {
   static get is() {
     return 'home-page';
   }
 
   static get properties() {
     return {
-      allowedCharacters: { type: Object, attribute: 'allowed-characters' },
-      appHeader: { type: String, attribute: 'app-header' },
-      user: {
-        type: String,
-      },
-      messageValidError: {
-        type: String,
-        attribute: 'message-valid-error',
-      },
-      validationUserPatter: {
-        type: Object,
-        attribute: 'validation-user-pattern',
-      },
       _showError: {
         type: Boolean,
         state: true,
@@ -40,12 +28,34 @@ class HomePage extends CommonComponentMixin(LitElement) {
 
   constructor() {
     super();
-    this.allowedCharacters = /[a-zA-Z0-9ñÑ]/;
-    this.appHeader = '';
-    this.messageValidError = 'User is invalid';
-    this.validationUserPatter = /^[a-zA-Z0-9ñÑ]{3,8}$/;
-    this.user = '';
     this._showError = false;
+    this.config = {
+      allowedCharacters: /[a-zA-Z0-9ñÑ]/,
+      appHeader: '',
+      messageValidError: 'User is invalid',
+      validationUserPatter: /^[a-zA-Z0-9ñÑ]{3,8}$/,
+      user: '',
+    };
+  }
+
+  get allowedCharacters() {
+    return this.getData('allowedCharacters');
+  }
+
+  get appHeader() {
+    return this.getData('appHeader');
+  }
+
+  get messageValidError() {
+    return this.getData('messageValidError');
+  }
+
+  get validationUserPatter() {
+    return this.getData('validationUserPatter');
+  }
+
+  get user() {
+    return this.getData('user');
   }
 
   _isUserValid() {
@@ -64,7 +74,7 @@ class HomePage extends CommonComponentMixin(LitElement) {
 
   _handleInputTextChange(event) {
     const { detail } = event;
-    this.user = detail;
+    this.setData('user', detail);
     this._showError = false;
   }
 
@@ -75,7 +85,7 @@ class HomePage extends CommonComponentMixin(LitElement) {
   }
 
   render() {
-    return html` <section>
+    return html`<section>
       <header>
         <h1>${this.appHeader}</h1>
       </header>

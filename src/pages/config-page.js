@@ -4,16 +4,15 @@ import '../components/radio-button-group.js';
 import '../components/link-button.js';
 
 import { CommonComponentMixin } from '../mixins/common-component-mixin.js';
+import { PageComponentMixin } from '../mixins/page-component-mixin.js';
 
-class ConfigPage extends CommonComponentMixin(LitElement) {
+class ConfigPage extends PageComponentMixin(CommonComponentMixin(LitElement)) {
   static get is() {
     return `config-page`;
   }
 
   static get properties() {
-    return {
-      config: { type: Object },
-    };
+    return {};
   }
 
   static get styles() {
@@ -21,24 +20,19 @@ class ConfigPage extends CommonComponentMixin(LitElement) {
   }
 
   get levels() {
-    return this.config?.levels || [];
+    return this.getData('levels', []);
   }
 
   get currentLevel() {
-    return this.config?.level || {};
+    return this.getData('level', {});
   }
 
   get currentNumberCardsToFind() {
-    return this.config?.numberCardsToFind || {};
+    return this.getData('numberCardsToFind', {});
   }
 
   get numberCardsToFind() {
-    return this.config?.optionsNumbersCardsToFind || [];
-  }
-
-  constructor() {
-    super();
-    this.config = {};
+    return this.getData('optionsNumbersCardsToFind', []);
   }
 
   _handleRadioGroupChange(event) {
