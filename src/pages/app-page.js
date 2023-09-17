@@ -10,12 +10,12 @@ import '../components/input-button.js';
 // views
 import 'pwa-helper-components/pwa-install-button.js';
 import 'pwa-helper-components/pwa-update-available.js';
-import '../components/page-template.js';
-import './home-page.js';
-import './game-page.js';
-import './scores-page.js';
-import './rules-page.js';
-import './config-page.js';
+import { PageTemplate } from '../components/page-template.js';
+import { HomePage } from './home-page.js';
+import { GamePage } from './game-page.js';
+import { ScoresPage } from './scores-page.js';
+import { RulesPage } from './rules-page.js';
+import { ConfigPage } from './config-page.js';
 
 import styles from './app-page-styles.js';
 
@@ -74,73 +74,65 @@ class AppPage extends LitElement {
   }
 
   get routes() {
-    return [
+    const routes = [
       {
+        config: { appHeader: this._appHeader, user: this._user },
+        element: HomePage,
         path: '/',
-        render: this.getRenderRoute(
-          '/',
-          config => html`<home-page
-            .config="${config}"
-          ></home-page>`,
-          {
-            appHeader: this._appHeader,
-            user: this._user,
-          },
-          false,
-          false
-        ),
+        showHeader: false,
+        showFooter: false,
+        showNav: false,
       },
       {
-        path: '/game',
+        config: this._appConfig,
+        element: GamePage,
+        enter: true,
         label: 'Game',
-        render: this.getRenderRoute(
-          '/game',
-          config => html`<game-page .config="${config}"></game-page>`,
-          this._appConfig
-        ),
-        enter: () => this._authenticationRoute(),
+        path: '/game',
       },
       {
-        path: '/scores',
+        config: { scores: this._scores, userScores: this._userScores },
+        element: ScoresPage,
+        enter: true,
         label: 'Scores',
-        render: this.getRenderRoute(
-          '/scores',
-          config => html`<scores-page .config="${config}"></scores-page>`,
-          { scores: this._scores, userScores: this._userScores }
-        ),
-        enter: () => this._authenticationRoute(),
+        path: '/scores',
       },
       {
-        path: '/rules',
+        element: RulesPage,
+        enter: true,
         label: 'Rules',
-        render: this.getRenderRoute(
-          '/rules',
-          () => html`<rules-page></rules-page>`
-        ),
-        enter: () => this._authenticationRoute(),
+        path: '/rules',
       },
       {
-        path: '/config',
+        config: {
+          ...this._appConfig,
+          levels: this._levels,
+          optionsNumbersCardsToFind: this._numberCardsToFind,
+        },
+        element: ConfigPage,
+        enter: true,
         label: 'Configs',
-        render: this.getRenderRoute(
-          '/config',
-          config => html`<config-page .config="${config}"></config-page>`,
-          {
-            ...this._appConfig,
-            levels: this._levels,
-            optionsNumbersCardsToFind: this._numberCardsToFind,
-          }
-        ),
-        enter: () => this._authenticationRoute(),
+        path: '/configs',
       },
       {
-        path: '/*',
         enter: () => {
           this._redirect('/');
           return false;
         },
-      },
+        path: '/*',
+        showHeader: false,
+        showFooter: false,
+        showNav: false,
+      }
     ];
+
+    return PageTemplate.generateRoutes({
+      routes,
+      context: this,
+      tplHeader: () => this._renderHeader,
+      tplFooter: () => this._renderFooter,
+      enter: () => this._authenticationRoute(),
+    });
   }
 
   getRenderRoute(

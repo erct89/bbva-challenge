@@ -4,7 +4,9 @@ import { PageComponentMixin } from '../mixins/page-component-mixin.js';
 
 import '../components/memory-game.js';
 
-class GamePage extends PageComponentMixin(CommonComponentMixin(LitElement)) {
+export class GamePage extends PageComponentMixin(
+  CommonComponentMixin(LitElement)
+) {
   static get is() {
     return 'game-page';
   }
@@ -20,8 +22,8 @@ class GamePage extends PageComponentMixin(CommonComponentMixin(LitElement)) {
   render() {
     return html` <section class="content content--center">
       <memory-game
-        .currentLevel="${this.config?.level}"
-        .numberCardsToFind="${this.config?.numberCardsToFind}"
+        .currentLevel="${this.get('level')}"
+        .numberCardsToFind="${this.get('numberCardsToFind')}"
       >
       </memory-game>
     </section>`;

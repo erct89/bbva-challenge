@@ -3,7 +3,9 @@ import { LitElement, html, css } from 'lit';
 import { CommonComponentMixin } from '../mixins/common-component-mixin.js';
 import { PageComponentMixin } from '../mixins/page-component-mixin.js';
 
-class RulesPage extends PageComponentMixin(CommonComponentMixin(LitElement)) {
+export class RulesPage extends PageComponentMixin(
+  CommonComponentMixin(LitElement)
+) {
   static get is() {
     return `rules-page`;
   }
@@ -13,7 +15,7 @@ class RulesPage extends PageComponentMixin(CommonComponentMixin(LitElement)) {
   }
 
   render() {
-    return html` <section>
+    return html`<section>
       <div>
         <div class="content">
           <h4>Description</h4>

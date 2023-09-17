@@ -77,6 +77,64 @@ export class PageTemplate extends LitElement {
       : nothing;
   }
 
+  static links(routes, page) {
+    return routes.filter(({ path, label }) => label && page !== path);
+  }
+
+  static generateRoute(configs) {
+    const {
+      path,
+      label,
+      element,
+      config = {},
+      context = {},
+      tplHeader,
+      tplFooter,
+      links = [],
+      showHeader,
+      showNav,
+      showFooter,
+      enter,
+    } = configs;
+    const render =
+      element &&
+      element.getRenderRoute({
+        context,
+        config,
+        tplHeader,
+        tplFooter,
+        links,
+        element,
+        showHeader,
+        showNav,
+        showFooter,
+      });
+
+    return { path, label, enter, render };
+  }
+
+  static generateRoutes({ routes, context, enter, tplFooter, tplHeader }) {
+    const addEnter = (routerEnter, commonEnter) => {
+      const options = {
+        function: routerEnter,
+        boolean: routerEnter ? commonEnter : () => true,
+        default: () => true,
+      };
+      return options[typeof enter] || options.default;
+    };
+
+    return routes.map(routeConfig =>
+      PageTemplate.generateRoute({
+        ...routeConfig,
+        tplFooter,
+        tplHeader,
+        context,
+        enter: addEnter(routeConfig.enter, enter),
+        links: PageTemplate.links(routes, routeConfig.path),
+      })
+    );
+  }
+
   render() {
     return html`
       <section>

@@ -6,7 +6,9 @@ import '../components/score-card.js';
 import '../components/scores-list.js';
 import '../components/link-button.js';
 
-class ScoresPage extends PageComponentMixin(CommonComponentMixin(LitElement)) {
+export class ScoresPage extends PageComponentMixin(
+  CommonComponentMixin(LitElement)
+) {
   static get is() {
     return 'scores-page';
   }
@@ -25,9 +27,9 @@ class ScoresPage extends PageComponentMixin(CommonComponentMixin(LitElement)) {
       scores: [],
       scoresHeader: 'Global Hight Scores',
       userScores: [],
-      userScoresHeader:'My Hight Scores',
-      emptyMessage: 'Yeah!! You are the first!!'
-    }
+      userScoresHeader: 'My Hight Scores',
+      emptyMessage: 'Yeah!! You are the first!!',
+    };
   }
 
   get scores() {

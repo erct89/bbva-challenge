@@ -6,7 +6,9 @@ import '../components/link-button.js';
 import { CommonComponentMixin } from '../mixins/common-component-mixin.js';
 import { PageComponentMixin } from '../mixins/page-component-mixin.js';
 
-class ConfigPage extends PageComponentMixin(CommonComponentMixin(LitElement)) {
+export class ConfigPage extends PageComponentMixin(
+  CommonComponentMixin(LitElement)
+) {
   static get is() {
     return `config-page`;
   }
@@ -20,19 +22,19 @@ class ConfigPage extends PageComponentMixin(CommonComponentMixin(LitElement)) {
   }
 
   get levels() {
-    return this.getData('levels', []);
+    return this.get('levels', []);
   }
 
   get currentLevel() {
-    return this.getData('level', {});
+    return this.get('level', {});
   }
 
   get currentNumberCardsToFind() {
-    return this.getData('numberCardsToFind', {});
+    return this.get('numberCardsToFind', {});
   }
 
   get numberCardsToFind() {
-    return this.getData('optionsNumbersCardsToFind', []);
+    return this.get('optionsNumbersCardsToFind', []);
   }
 
   _handleRadioGroupChange(event) {

@@ -8,7 +8,9 @@ import '../components/link-button.js';
 
 import styles from './home-page-styles.js';
 
-class HomePage extends PageComponentMixin(CommonComponentMixin(LitElement)) {
+export class HomePage extends PageComponentMixin(
+  CommonComponentMixin(LitElement)
+) {
   static get is() {
     return 'home-page';
   }
@@ -39,23 +41,23 @@ class HomePage extends PageComponentMixin(CommonComponentMixin(LitElement)) {
   }
 
   get allowedCharacters() {
-    return this.getData('allowedCharacters');
+    return this.get('allowedCharacters');
   }
 
   get appHeader() {
-    return this.getData('appHeader');
+    return this.get('appHeader');
   }
 
   get messageValidError() {
-    return this.getData('messageValidError');
+    return this.get('messageValidError');
   }
 
   get validationUserPatter() {
-    return this.getData('validationUserPatter');
+    return this.get('validationUserPatter');
   }
 
   get user() {
-    return this.getData('user');
+    return this.get('user');
   }
 
   _isUserValid() {
@@ -74,7 +76,7 @@ class HomePage extends PageComponentMixin(CommonComponentMixin(LitElement)) {
 
   _handleInputTextChange(event) {
     const { detail } = event;
-    this.setData('user', detail);
+    this.set('user', detail);
     this._showError = false;
   }
 
